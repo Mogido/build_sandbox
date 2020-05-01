@@ -1,0 +1,19 @@
+{
+  "name": "build-sandbox",
+  "version": "1.0.0",
+  "description": "Learning to create own build",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mogido/build_sandbox.git"
+  },
+  "author": "Maksim Trofimov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mogido/build_sandbox/issues"
+  },
+  "homepage": "https://github.com/Mogido/build_sandbox#readme"
+}
