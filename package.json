@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Mogido/build_sandbox/issues"
   },
-  "homepage": "https://github.com/Mogido/build_sandbox#readme"
+  "homepage": "https://github.com/Mogido/build_sandbox#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6"
+  }
 }
