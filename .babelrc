@@ -1,8 +1,14 @@
 {
-    "presets": ["@babel/env"],
-    "plugins": [
-        "@babel/proposal-class-properties"
-    ]
+    "presets": [[
+        "@babel/env",
+    {
+        "targets": {
+            "edge": "18",
+            "chrome": "54",
+            "ie": 11
+        }
+    }]],
+    "plugins": ["@babel/proposal-class-properties"]
 }
 
 //npx babel src --out-dir build
