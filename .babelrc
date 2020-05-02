@@ -2,13 +2,17 @@
     "presets": [[
         "@babel/env",
     {
-        "targets": {
-            "edge": "18",
-            "chrome": "54",
-            "ie": 11
-        }
+        "debug": true, //detailed info about browsers
+        "targets": [
+           "> 0.3%",
+           "not ie > 0" //all browsers with > 0.3% users besides ie
+        ]
     }]],
     "plugins": ["@babel/proposal-class-properties"]
 }
 
 //npx babel src --out-dir build
+
+/* "targets": [
+    "last 2 chrome versions
+    ]"*/
