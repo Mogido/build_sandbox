@@ -6,7 +6,8 @@
         "useBuiltIns": "usage", //core js use only polyfills, those useful in project. If setted to "entry" allow corejs import all polyfills for target browsers
         "debug": true, //detailed info about browsers
         "modules": false //"require" not allowed, only "import"
-    }]],
+    }],
+        "@babel/react"], 
     "plugins": ["@babel/proposal-class-properties"]
 }
 
