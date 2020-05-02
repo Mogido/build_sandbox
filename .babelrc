@@ -3,10 +3,6 @@
         "@babel/env",
     {
         "debug": true, //detailed info about browsers
-        "targets": [
-           "> 0.3%",
-           "not ie > 0" //all browsers with > 0.3% users besides ie
-        ]
     }]],
     "plugins": ["@babel/proposal-class-properties"]
 }
