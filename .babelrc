@@ -1,0 +1,9 @@
+{
+    "plugins": [
+        "@babel/plugin-transform-template-literals",
+        "@babel/plugin-transform-classes",
+        "@babel/plugin-transform-block-scoping"
+    ]
+}
+
+//npx babel src --out-dir build
