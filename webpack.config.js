@@ -1,70 +1,99 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-    mode: "development",
+module.exports = (env = {}) => {
 
-    module: {
-        rules: [
+    const { mode = 'development' } = env;
 
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
+    const isProd = mode === 'production';
+    const isDev = mode === 'development';
 
-            // loading images
-            {
-                test: /\.(png|jpg|jpeg|gif|ico$)/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'images',
-                            name: '[name]-[sha1:hash:7].[ext]'
-                    }
-                }]
-            },
+    const getStyleLoaders = () => {
+        return [
+            isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader'
+        ];
+    };
 
-            // loading fonts
-            {
-                test: /\.(ttf|otf|eot|woff|woff2)$/, 
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'fonts',
-                            name: '[name].[ext]'
-                    }
-                }]
-            },
+    const getPlugins = () => {
+        const plugins = [
+            new HtmlWebpackPlugin({
+                title: 'Hello World',
+                buildTime: new Date().toISOString(),
+                template: 'public/index.html'
+            })
+        ];
 
-            //loading styles
-            {
-                test: /\.(css)$/,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader']
-            },
+        if (isProd) {
+            plugins.push(new MiniCssExtractPlugin({
+                filename: 'main-[hash:8].css'
+            }))
+        }
 
-            //loading SASS/SCSS
-            {
-                test: /\.(s[ca]ss)$/,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
-            }
-        ]
-    },
+        return plugins;
+    };
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Hello World',
-            buildTime: new Date().toISOString(),
-            template: 'public/index.html'
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'main-[hash:8].css'
-        })
-    ],
+    return {
+        mode: isProd ? 'production': isDev && 'development',
 
-    devServer: {
-        open: true
-    }
+        output: {
+            filename: isProd ? 'main-[hash:8].js' : undefined
+        },
+
+        module: {
+            rules: [
+
+                {
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader'
+                },
+
+                // loading images
+                {
+                    test: /\.(png|jpg|jpeg|gif|ico$)/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: 'images',
+                                name: '[name]-[sha1:hash:7].[ext]'
+                        }
+                    }]
+                },
+
+                // loading fonts
+                {
+                    test: /\.(ttf|otf|eot|woff|woff2)$/, 
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: 'fonts',
+                                name: '[name].[ext]'
+                        }
+                    }]
+                },
+
+                //loading styles
+                {
+                    test: /\.(css)$/,
+                    use: getStyleLoaders()
+                },
+
+                //loading SASS/SCSS
+                {
+                    test: /\.(s[ca]ss)$/,
+                    use: [ ...getStyleLoaders(), 'sass-loader' ]
+                }
+            ]
+            
+        },
+
+        plugins: getPlugins(),
+
+        devServer: {
+            open: true
+        }
+    };
 };
